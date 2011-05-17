@@ -1,0 +1,43 @@
+== Building Boost modules with automatic dependency resolution
+
+Rypplite can be used to download dependencies of CMake-able Boost components.
+To make use of it, simply set the variable 'Boost_DIR' to the absolute path of
+Rypplite.
+
+Additionally, the 'RYPPL_COMPONENTS' may be set to a list of components that are
+already available. Rypplite will skip these modules and not download them. It is
+important to set this variable in case your component is part of a circular
+dependency. Otherwise, setting this variable is not required, but also does not
+do any harm. It is therefore a good idea to always set it.
+
+=== Single module
+
+If you build a single Boost component, the simplest way to set the two variables
+is to pass them via command line parameters. Example:
+
+   cmake -DBoost_DIR=/path/to/rypplite/ -DRYPPL_COMPONENTS=accumulators ../path/to/accumulators/
+
+=== Multiple modules (Workspace mode)
+
+When building multiple Boost components, it is easier to set the required
+variables in a CMakeLists.txt file. Create a workspace directory and put
+rypplite as well as all your Boost components inside. The CMakeLists.txt will
+look similar to this one:
+
+  cmake_minimum_required(VERSION 2.8.4)
+  project(MyWorkspace)
+  
+  set(Boost_DIR "${CMAKE_SOURCE_DIR}/rypplite")
+  
+  # As long as CTest does not support incremental testing, we disable the
+  # builtin test target and create our own. This target should be "built"
+  # with the "keep going" option, eg: 'make test -k'.
+  add_custom_target(test)
+  #enable_testing()
+  
+  # Set the components that Rypplite should not download
+  set(RYPPL_COMPONENTS filesystem quickbook)
+  
+  add_subdirectory(filesystem)
+  add_subdirectory(quickbook)
+
