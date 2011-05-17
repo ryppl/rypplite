@@ -39,6 +39,9 @@ add_custom_target(test)
 # Set the components that Rypplite should not download
 set(RYPPL_COMPONENTS filesystem quickbook)
 
+# This is required. The reason is complicated. Please just set it to 'one'.
+set(RYPPL_DEPENDENCY_LEVEL 1)
+
 add_subdirectory(filesystem)
 add_subdirectory(quickbook)
 ----
