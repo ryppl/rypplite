@@ -45,3 +45,10 @@ set(RYPPL_DEPENDENCY_LEVEL 1)
 add_subdirectory(filesystem)
 add_subdirectory(quickbook)
 ----
+
+=== Updating dependencies
+
+To update all the dependencies to their newest commit, simply build the 'update'
+target.
+
+   make update
