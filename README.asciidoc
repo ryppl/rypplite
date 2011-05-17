@@ -24,7 +24,6 @@ variables in a CMakeLists.txt file. Create a workspace directory and put
 rypplite as well as all your Boost components inside. The CMakeLists.txt will
 look similar to this one:
 
-[source]
 ----
 cmake_minimum_required(VERSION 2.8.4)
 project(MyWorkspace)
